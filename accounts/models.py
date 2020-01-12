@@ -14,10 +14,22 @@ class CustomUser(AbstractUser):
         FEMALE = 'Female', 'Female'
         BLANK = '', ''
 
+    class AccountType(models.TextChoices):
+
+        INDIVIDUAL = 'Individual', 'Individual'
+        PROPERTY_OWNER = 'Property Owner', 'Property Owner'
+        ESTATE_AGENT = 'Estate Agent', 'Estate Agent'
+        PROPERTY_DEVELOPER = 'Property Developer', 'Property Developer'
+
     gender = models.CharField(
         max_length=10,
         choices=Gender.choices,
         default=Gender.BLANK
+    )
+    account_type = models.CharField(
+        max_length=50,
+        choices=AccountType.choices,
+        default=AccountType.INDIVIDUAL
     )
     date_of_birth = models.DateField("date of birth", blank=True, null=True)
     phone_number = PhoneNumberField(
