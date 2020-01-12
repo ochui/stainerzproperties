@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # local app
     'accounts.apps.AccountsConfig',
+    'property_ads.apps.PropertyAdsConfig',
 
     # 3'rd party apps
     'allauth',
