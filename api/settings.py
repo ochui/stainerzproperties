@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True) == 'True'
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -94,11 +100,11 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT'),
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -142,7 +148,7 @@ TIME_ZONE = 'Africa/Lagos'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Site Id
-SITE_ID = os.environ.get('SITE_ID', 1)
+SITE_ID = env('SITE_ID')
 
 # allauth customization
 ACCOUNT_EMAIL_REQUIRED = True
@@ -185,8 +191,8 @@ CURRENCIES = ('NGN',)
 CURRENCY_CHOICES = [('NGN', 'NGN ₦'), ]
 
 
-# DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
-# # DROPBOX_ROOT_PATH = os.environ.get('DROPBOX_ROOT_PATH')
+# DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
+# # DROPBOX_ROOT_PATH = env('DROPBOX_ROOT_PATH')
 
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist
 
