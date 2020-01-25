@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -186,8 +185,8 @@ CURRENCIES = ('NGN',)
 CURRENCY_CHOICES = [('NGN', 'NGN ₦'), ]
 
 
-DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
-# DROPBOX_ROOT_PATH = os.environ.get('DROPBOX_ROOT_PATH')
+# DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
+# # DROPBOX_ROOT_PATH = os.environ.get('DROPBOX_ROOT_PATH')
 
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist
 
@@ -195,4 +194,10 @@ CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-django_heroku.settings(locals())
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
