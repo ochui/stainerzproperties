@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from djmoney.models.fields import MoneyField
-from django_mysql.models import JSONField, Model
+from django.contrib.postgres.fields import JSONField
 
 User = get_user_model()
 

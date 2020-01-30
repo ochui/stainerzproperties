@@ -11,13 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import environ
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-# reading .env file
-environ.Env.read_env()
+import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = os.environ.get('DEBUG', True) == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -61,7 +56,6 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'django_filters',
     'corsheaders',
-    'django_mysql',
 ]
 
 MIDDLEWARE = [
@@ -100,21 +94,12 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
-        'OPTIONS': {
-            # Tell MySQLdb to connect with 'utf8mb4' character set
-            'charset': 'utf8mb4',
-        },
-        # Tell Django to build the test database with the 'utf8mb4' character set
-        'TEST': {
-            'CHARSET': 'utf8mb4',
-            'COLLATION': 'utf8mb4_unicode_ci',
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -158,7 +143,7 @@ TIME_ZONE = 'Africa/Lagos'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Site Id
-SITE_ID = env('SITE_ID')
+SITE_ID = os.environ.get('SITE_ID', 1)
 
 # allauth customization
 ACCOUNT_EMAIL_REQUIRED = True
@@ -201,8 +186,8 @@ CURRENCIES = ('NGN',)
 CURRENCY_CHOICES = [('NGN', 'NGN ₦'), ]
 
 
-# DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
-# # DROPBOX_ROOT_PATH = env('DROPBOX_ROOT_PATH')
+DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN')
+# DROPBOX_ROOT_PATH = os.environ.get('DROPBOX_ROOT_PATH')
 
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist
 
@@ -210,10 +195,4 @@ CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
+django_heroku.settings(locals())
