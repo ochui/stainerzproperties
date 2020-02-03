@@ -36,11 +36,15 @@ class CustomUser(AbstractUser):
         verbose_name="phone number",
         null=True, blank=True
     )
+    address = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
     following = models.ManyToManyField(
         "self", through='Peer',
         symmetrical=False,
         related_name='followers'
     )
+    bio = models.TextField(blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse("user_profile", args=[self.username])

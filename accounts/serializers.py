@@ -10,6 +10,7 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         model = UserModel
         fields = (
             'pk', 'username', 'first_name', 'last_name', 'account_type',
-            'email', 'phone_number', 'date_of_birth', 'gender',
+            'email', 'phone_number', 'date_of_birth', 'gender', 'address',
+            'city', 'state', 'bio'
         )
         read_only_fields = ('email', 'username')
