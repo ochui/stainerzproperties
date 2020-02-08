@@ -3,8 +3,15 @@ from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
 from rest_auth.registration.serializers import RegisterSerializer
 from phonenumber_field.serializerfields import PhoneNumberField
+from accounts.models import Subscription
 
 UserModel = get_user_model()
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subscription
+        fields = '__all__'
 
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):

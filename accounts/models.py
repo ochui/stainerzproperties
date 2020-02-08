@@ -4,6 +4,17 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
+from djmoney.models.fields import MoneyField
+
+
+class Subscription(models.Model):
+
+    name = models.CharField(max_length=150)
+    price = MoneyField(max_digits=14, decimal_places=2, default_currency='NGN')
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 
 class CustomUser(AbstractUser):
