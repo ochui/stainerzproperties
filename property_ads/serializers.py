@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework import serializers
 from accounts.serializers import UserDetailsSerializer
 from property_ads.models import (
-    Ad, AdImage, Category
+    Ad, AdImage, Category, AdField
 )
 UserModel = get_user_model()
 
@@ -17,12 +17,23 @@ class AdManagerDetailsSerializer(UserDetailsSerializer):
         )
 
 
+class AdFieldSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AdField
+        fields = (
+            'name', 'placeholder', 'position'
+        )
+
+
 class CategorySerializer(serializers.ModelSerializer):
+
+    fields = AdFieldSerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
         fields = (
-            '__all__'
+            'id', 'name', 'description', 'parent', 'fields'
         )
 
 

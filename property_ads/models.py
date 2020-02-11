@@ -3,8 +3,27 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from djmoney.models.fields import MoneyField
 from django.contrib.postgres.fields import JSONField
+from django.conf import settings
 
 User = get_user_model()
+
+
+class AdField(models.Model):
+
+    name = models.CharField(max_length=50)
+    position = models.PositiveIntegerField()
+    placeholder = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Property field"
+        verbose_name_plural = "Property field"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("adfield_detail", kwargs={"pk": self.pk})
 
 
 class Category(models.Model):
@@ -14,6 +33,9 @@ class Category(models.Model):
         'self',
         on_delete=models.CASCADE,
         null=True, blank=True
+    )
+    fields = models.ManyToManyField(
+        AdField, related_name='category'
     )
     description = models.TextField(blank=True)
 
