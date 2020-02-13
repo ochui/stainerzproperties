@@ -11,7 +11,11 @@ class CategoryListAPIView(ListAPIView):
     filterset_fields = ['parent']
 
     def get_queryset(self):
-        return Category.objects.all()
+        if self.request.GET.get('parent'):
+            return Category.objects.all()
+        return Category.objects.filter(
+            parent__isnull=True
+        )
 
 
 class AdListAPIView(ListAPIView):
