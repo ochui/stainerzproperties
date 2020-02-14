@@ -56,6 +56,12 @@ class Ad(models.Model):
 
     # Generic fields
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        default=None, null=True,
+        blank=True, related_name='subcategory'
+    )
     title = models.CharField(max_length=200)
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='NGN')
     is_negotiable = models.BooleanField(default=False)

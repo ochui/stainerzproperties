@@ -72,9 +72,9 @@ class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
         fields = [
-            "id", "title", "price_currency", "price",
+            "id", "title", "category", "subcategory", "price_currency", "price",
             "is_negotiable", "broker_fee", "description", "attrs", "images",
-            "address", "region", "place", "created", "updated", "agent", "category"
+            "address", "region", "place", "created", "updated", "agent", 
         ]
 
         read_only_fields = (
