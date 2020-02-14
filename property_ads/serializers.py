@@ -66,7 +66,8 @@ class AdSerializer(serializers.ModelSerializer):
     Property Serializer
     """
 
-    images = AdImageSerializer(source='ad_set', many=True, read_only=True)
+    images = AdImageSerializer(source='adimage_set', many=True, read_only=True)
+    agent = AdManagerDetailsSerializer()
 
     class Meta:
         model = Ad
@@ -77,7 +78,7 @@ class AdSerializer(serializers.ModelSerializer):
         ]
 
         read_only_fields = (
-            'user',
+            'agent',
         )
 
     def create(self, validated_data):

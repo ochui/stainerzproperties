@@ -35,7 +35,7 @@ class AdListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        return Ad.objects.all()
+        return Ad.objects.all().order_by('created')
 
 
 class AuthUserAdListView(generics.ListCreateAPIView):

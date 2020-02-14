@@ -91,8 +91,8 @@ class AdImage(models.Model):
     position = models.PositiveSmallIntegerField()
 
     class Meta:
-        verbose_name = "Update Image"
-        verbose_name_plural = "Update Images"
+        verbose_name = "Property Image"
+        verbose_name_plural = "Property Images"
 
     def __str__(self):
         return '{} ({})'.format(self.ad, self.position)

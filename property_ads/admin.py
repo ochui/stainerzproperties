@@ -22,3 +22,9 @@ class AdAdmin(admin.ModelAdmin):
 class AdFieldAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'placeholder', 'position']
+
+
+@admin.register(AdImage)
+class AdImageAdmin(admin.ModelAdmin):
+
+    list_display = ['ad']
