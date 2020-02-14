@@ -53,7 +53,7 @@ class AuthUserAdListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Ad.objects.filter(user=self.request.user)
+            return Ad.objects.filter(agent=self.request.user)
 
         return Ad.objects.none()
 
