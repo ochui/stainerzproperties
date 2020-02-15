@@ -58,4 +58,4 @@ class AuthUserAdListView(generics.ListCreateAPIView):
         return Ad.objects.none()
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(agent=self.request.user)
