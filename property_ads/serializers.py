@@ -67,7 +67,7 @@ class AdSerializer(serializers.ModelSerializer):
     """
 
     images = AdImageSerializer(source='adimage_set', many=True, read_only=True)
-    agent = AdManagerDetailsSerializer()
+    agent = AdManagerDetailsSerializer(read_only=True)
 
     class Meta:
         model = Ad
