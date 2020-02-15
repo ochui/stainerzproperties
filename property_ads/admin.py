@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class AdAdmin(admin.ModelAdmin):
 
     list_display = ['title', 'category', 'agent', 'region', 'place']
-    list_display = ['category', 'region', 'place']
+    list_filter = ['category', 'region', 'place']
 
 
 @admin.register(AdField)
