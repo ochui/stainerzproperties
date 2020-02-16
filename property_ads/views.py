@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from property_ads.models import Ad, Category
 from property_ads.serializers import AdSerializer, CategorySerializer
+from property_ads.filters import AdFilter
 
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -32,6 +33,7 @@ class AdListAPIView(generics.ListAPIView):
         'region', 'place', 'category', 'is_negotiable',
         'broker_fee', 'price'
     ]
+    filter_class = AdFilter
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
