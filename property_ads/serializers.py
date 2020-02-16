@@ -18,6 +18,7 @@ class AdManagerDetailsSerializer(UserDetailsSerializer):
         model = USERMODEL
         fields = (
             'first_name', 'last_name', 'email', 'phone_number', 'gender',
+            'phone_number', 'address', 'city', 'state', 'account_type'
         )
 
 
@@ -74,7 +75,7 @@ class AdSerializer(serializers.ModelSerializer):
         fields = [
             "id", "title", "category", "subcategory", "price_currency", "price",
             "is_negotiable", "broker_fee", "description", "attrs", "images",
-            "address", "region", "place", "created", "updated", "agent", 
+            "address", "region", "place", "created", "updated", "agent",
         ]
 
         read_only_fields = (
