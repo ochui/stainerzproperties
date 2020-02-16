@@ -38,6 +38,19 @@ class AdListAPIView(generics.ListAPIView):
         return Ad.objects.all().order_by('created')
 
 
+class AdDetailAPIView(generics.RetrieveAPIView):
+
+    """
+    Return an object of the property
+    """
+
+    serializer_class = AdSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return Ad.objects.all()
+
+
 class AuthUserAdListView(generics.ListCreateAPIView):
 
     """
