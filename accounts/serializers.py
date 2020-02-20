@@ -7,6 +7,7 @@ from accounts.models import Subscription
 
 UserModel = get_user_model()
 
+
 class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -21,7 +22,7 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         fields = (
             'pk', 'username', 'first_name', 'last_name', 'account_type',
             'email', 'phone_number', 'date_of_birth', 'gender', 'address',
-            'city', 'state', 'bio'
+            'city', 'state', 'bio', 'avatar'
         )
         read_only_fields = ('email', 'username')
 

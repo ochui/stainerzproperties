@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -56,6 +57,10 @@ class CustomUser(AbstractUser):
         related_name='followers'
     )
     bio = models.TextField(blank=True, null=True)
+    avatar = models.ImageField(
+        upload_to='images/avatar/%Y',
+        null=True, blank=True
+    )
 
     def get_absolute_url(self):
         return reverse("user_profile", args=[self.username])
