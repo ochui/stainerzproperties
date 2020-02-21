@@ -48,10 +48,19 @@ class CategorySerializer(serializers.ModelSerializer):
         )
 
 
+class AdCategorySerializer(serializers.ModelSerializer):
+
+    """Category Serializer"""
+
+    class Meta:
+        model = Category
+        fields = ('id', 'name',)
+
+
 class AdImageSerializer(serializers.ModelSerializer):
 
     """
-   AdImage Serializer 
+   AdImage Serializer
     """
 
     class Meta:
@@ -69,13 +78,16 @@ class AdSerializer(serializers.ModelSerializer):
 
     images = AdImageSerializer(source='adimage_set', many=True, read_only=True)
     agent = AdManagerDetailsSerializer(read_only=True)
+    category_meta = AdCategorySerializer(source='category', read_only=True)
+    subcategory_meta = AdCategorySerializer(
+        source='subcategory', read_only=True)
 
     class Meta:
         model = Ad
         fields = [
             "id", "title", "category", "subcategory", "price_currency", "price",
             "is_negotiable", "broker_fee", "description", "attrs", "images",
-            "address", "region", "place", "created", "updated", "agent",
+            "address", "region", "place", "created", "updated", "agent", "category_meta", "subcategory_meta"
         ]
 
         read_only_fields = (
