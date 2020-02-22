@@ -1,5 +1,6 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 from property_ads.models import Ad, Category
 from property_ads.serializers import AdSerializer, CategorySerializer
 from property_ads.filters import AdFilter
@@ -34,6 +35,8 @@ class AdListAPIView(generics.ListAPIView):
         'broker_fee', 'price'
     ]
     filter_class = AdFilter
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['title', 'description']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
