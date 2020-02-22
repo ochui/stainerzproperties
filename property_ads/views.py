@@ -74,3 +74,15 @@ class AuthUserAdListView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(agent=self.request.user)
+
+
+class AuthUserAdDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = AdSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Ad.objects.filter(agent=self.request.user)
+        else:
+            return Ad.objects.none()
