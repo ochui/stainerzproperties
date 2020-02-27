@@ -17,7 +17,7 @@ class AdManagerDetailsSerializer(UserDetailsSerializer):
     class Meta:
         model = USERMODEL
         fields = (
-            'first_name', 'last_name', 'email', 'phone_number', 'gender',
+            'id', 'first_name', 'last_name', 'email', 'phone_number', 'gender',
             'phone_number', 'address', 'city', 'state', 'account_type', 'avatar'
         )
 
