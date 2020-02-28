@@ -1,9 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from property_ads.models import Ad, Category
-from property_ads.serializers import AdSerializer, CategorySerializer
+from property_ads.serializers import AdSerializer, CategorySerializer, UserListSerializer, CustomDetailsSerializer
 from property_ads.filters import AdFilter
+
+USERMODEL = get_user_model()
 
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -89,3 +92,29 @@ class AuthUserAdDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Ad.objects.filter(agent=self.request.user)
         else:
             return Ad.objects.none()
+
+
+class UserListAPIView(generics.ListAPIView):
+
+    """
+    Return an object of the property
+    """
+
+    serializer_class = UserListSerializer
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return USERMODEL.objects.all()
+
+
+class UserDetailAPIView(generics.RetrieveAPIView):
+
+    """
+    Return an object of the property
+    """
+
+    serializer_class = CustomDetailsSerializer
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return USERMODEL.objects.all()

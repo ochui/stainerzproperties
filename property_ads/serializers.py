@@ -102,3 +102,30 @@ class AdSerializer(serializers.ModelSerializer):
             AdImage.objects.create(
                 ad=ad, image=image_data, position=index)
         return ad
+
+
+class UserListSerializer(serializers.ModelSerializer):
+
+    """Category Serializer"""
+
+    class Meta:
+        model = USERMODEL
+        fields = (
+            'id', 'username', 'first_name', 'last_name', 'account_type', 'state',
+        )
+
+
+class CustomDetailsSerializer(UserDetailsSerializer):
+
+    """
+    converts user id to user details object
+    """
+    property = AdSerializer(source='ad_set', many=True, read_only=True)
+
+    class Meta:
+        model = USERMODEL
+        fields = (
+            'id', 'first_name', 'last_name', 'email', 'phone_number', 'gender',
+            'phone_number', 'address', 'city', 'state', 'account_type', 'avatar',
+            'property'
+        )
