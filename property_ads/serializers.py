@@ -112,6 +112,7 @@ class UserListSerializer(serializers.ModelSerializer):
         model = USERMODEL
         fields = (
             'id', 'username', 'first_name', 'last_name', 'account_type', 'state',
+            'city', 'avatar'
         )
 
 
